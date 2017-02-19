@@ -43,7 +43,11 @@ app.post('/create-user', (req, res) => {
 })
 
 app.get('/', (req, res) => {
-    res.render('home');
+    res.render('main/home');
+})
+
+app.get('/about', (req, res) => {
+    res.render('main/about');
 })
 
 app.listen(3000, (err) => {

@@ -1,3 +1,6 @@
+.gitignore
 ENV_VARS/*
 ENV_VARS/
-ENV_VARS
+Env_Vars/
+Env_Vars
+node_modules
