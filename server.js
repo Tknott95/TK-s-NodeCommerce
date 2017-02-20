@@ -9,7 +9,8 @@ var cookieParser = require('cookie-parser');
 var flash = require('express-flash');
 var secret = require('./config/secret');
 var User = require('./models/user');
-
+var MongoStore = require('connect-mongo')(session); // Depends on express-session (Wont work w/out)
+var passport = require('passport');
 var app = express();
 
 mongoose.connect(secret.database, (err) => {
@@ -31,7 +32,11 @@ app.use(cookieParser());
 app.use(session({
     resave: true,
     saveUnitialized: true,
-    secret: secret.secretKey
+    secret: secret.secretKey,
+    store: new MongoStore({
+        url: secret.database,
+        autoReconnect: true
+    })
 }));
 app.use(flash());
 
