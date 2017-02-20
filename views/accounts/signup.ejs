@@ -1,7 +1,16 @@
-<% layout('layout') -%> 
+<% layout('/layout') -%> 
 
 <div class="row">
   <div class="col-lg-6 col-lg-offset-3">
+
+    <% if (errors.length > 0) { %>
+        <div class="alert alert-danger aler-dismissible">
+            <button class="close" type="button" data-dismissible="alert" aria-label="close">
+            </button>
+            <%= errors %>
+        </div>
+    <% } %>
+
     <form method="post">
 
         <h1>Signup</h1>
@@ -17,6 +26,8 @@
         <div class="form-group">
             <label for="password">Password</label>
             <input type="password" class="form-control" name="password"> 
+            <br>
+            <button type="submit" class="btn btn-success">Submit</button>
         </div>
     </form>
   </div>

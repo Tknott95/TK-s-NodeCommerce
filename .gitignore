@@ -2,5 +2,9 @@
 ENV_VARS/*
 ENV_VARS/
 Env_Vars/
-Env_Vars
+Env_Vars/*
+.Env_Vars
+/config/*
+config/*
+.config/*
 node_modules

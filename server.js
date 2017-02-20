@@ -4,12 +4,15 @@ var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var ejs = require('ejs');
 var ejsMate = require('ejs-mate');
-
+var session = require('express-session');
+var cookieParser = require('cookie-parser');
+var flash = require('express-flash');
+var secret = require('./config/secret');
 var User = require('./models/user');
 
 var app = express();
 
-mongoose.connect(`mongodb://root:1@ds017246.mlab.com:17246/nodecommerce`, (err) => {
+mongoose.connect(secret.database, (err) => {
     if (err) {
         console.log(err)
     } else {
@@ -24,18 +27,24 @@ app.use(express.static(__dirname + '/public'));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
+app.use(session({
+    resave: true,
+    saveUnitialized: true,
+    secret: secret.secretKey
+}));
+app.use(flash());
 
 app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');
 
 // Routes
-
 var mainRoutes = require('./routes/main')
 var userRoutes = require('./routes/user');
 app.use(mainRoutes);
 app.use(userRoutes);
 
-app.listen(3000, (err) => {
+app.listen(secret.port, (err) => {
     if (err) throw err;
-    console.log('Server is Running...');
+    console.log(`Server is running on port ${secret.port}...`);
 })
